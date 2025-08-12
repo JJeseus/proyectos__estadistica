@@ -1,0 +1,16 @@
+project:
+  type: website          # Le dice a Quarto que es un sitio web
+  output-dir: docs       # Carpeta de salida (GitHub Pages usa /docs)
+
+website:
+  title: "Ejercicios de Estadística"   # Título que se verá en el navegador
+  navbar:                 # Barra de navegación
+    left:
+      - href: index.qmd
+        text: Inicio
+
+format:
+  html:
+    theme: cosmo          # Tema visual (bootstrap)
+    toc: true             # Tabla de contenido
+    smooth-scroll: true   # Desplazamiento suave

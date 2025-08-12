@@ -1,0 +1,23 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Ejercicios de Estadística",
+    "section": "",
+    "text": "Esta página contiene ejercicios autocorregibles. Renderiza (Ctrl/Cmd+Shift+K) para refrescar datos."
+  },
+  {
+    "objectID": "index.html#bienvenido",
+    "href": "index.html#bienvenido",
+    "title": "Ejercicios de Estadística",
+    "section": "",
+    "text": "Esta página contiene ejercicios autocorregibles. Renderiza (Ctrl/Cmd+Shift+K) para refrescar datos."
+  },
+  {
+    "objectID": "index.html#ejercicio-1-media",
+    "href": "index.html#ejercicio-1-media",
+    "title": "Ejercicios de Estadística",
+    "section": "Ejercicio 1 — Media",
+    "text": "Ejercicio 1 — Media\nIngresa la media (2–3 decimales):\n&lt;input id=\"ans_media\" type=\"number\" step=\"0.01\" style=\"width:140px;\"&gt;&lt;button onclick=\"(function(){const v=parseFloat(document.getElementById('ans_media').value);const sol=Number(r round(media_real,6));const ok=Math.abs(v-sol)&lt;=Math.max(0.01,Math.abs(sol)*0.002);document.getElementById('out_media').textContent= ok ? \"✅ Correcto\" : ❌ Incorrecto. La media era ${sol.toFixed(2)};})()\"&gt;Verificar&lt;/button&gt;\n&lt;div id=\"out_media\" style=\"margin-top:6px;\"&gt;&lt;/div&gt;"
+  }
+]

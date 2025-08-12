@@ -1,0 +1,18 @@
+---
+title: "Ejercicios de Estadística"
+format:
+  html:
+    code-tools: true
+    code-fold: true
+---
+
+## Bienvenido
+
+Esta página contiene ejercicios autocorregibles. Renderiza (Ctrl/Cmd+Shift+K) para refrescar datos.
+
+## Ejercicio 1 — Media
+
+**Ingresa la media (2–3 decimales):**\
+`<input id="ans_media" type="number" step="0.01" style="width:140px;"><button onclick="(function(){const v=parseFloat(document.getElementById('ans_media').value);const sol=Number(r round(media_real,6));const ok=Math.abs(v-sol)<=Math.max(0.01,Math.abs(sol)*0.002);document.getElementById('out_media').textContent= ok ? "✅ Correcto" : ❌ Incorrecto. La media era ${sol.toFixed(2)};})()">Verificar</button>`
+
+`<div id="out_media" style="margin-top:6px;"></div>`
