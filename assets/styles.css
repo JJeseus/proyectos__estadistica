@@ -1,0 +1,80 @@
+/* ======== Configuración global ======== */
+body {
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f8f9fa;
+  color: #333;
+  padding-top: 20px;
+}
+
+/* ======== Títulos ======== */
+h1, h2, h3 {
+  font-weight: 600;
+  color: #155724; /* Verde oscuro */
+}
+
+/* ======== Barra de navegación ======== */
+.navbar {
+  background-color: #198754 !important; /* Verde Bootstrap */
+}
+.navbar a, .navbar-brand {
+  color: white !important;
+}
+.navbar a:hover {
+  background-color: #146c43 !important;
+}
+
+/* ======== Botones ======== */
+button {
+  background-color: #198754;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  margin-top: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #146c43;
+}
+
+/* ======== Inputs numéricos ======== */
+input[type=number] {
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* ======== Bloques de resultado ======== */
+#out_media, #out_var, #out_sd {
+  margin-top: 10px;
+  font-weight: bold;
+}
+#out_media:empty, #out_var:empty, #out_sd:empty {
+  display: none;
+}
+
+/* ======== Tablas ======== */
+table {
+  background-color: white;
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+table th {
+  background-color: #198754;
+  color: white;
+  padding: 8px;
+}
+table td {
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+
+/* ======== Mensajes correctos/incorrectos ======== */
+.correcto {
+  color: #198754;
+}
+.incorrecto {
+  color: #dc3545;
+}

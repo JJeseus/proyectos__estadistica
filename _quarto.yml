@@ -11,6 +11,8 @@ website:
 
 format:
   html:
-    theme: cosmo          # Tema visual (bootstrap)
-    toc: true             # Tabla de contenido
-    smooth-scroll: true   # Desplazamiento suave
+    theme: cosmo
+    toc: true
+    smooth-scroll: true
+    css: assets/styles.css
+
