@@ -18,7 +18,7 @@ desde evaluar la capacidad de un proceso, hasta diseñar experimentos y analizar
 
 ------------------------------------------------------------------------
 
-> *"En ingeniería, los datos son materia prima. La estadística es la maquinaria que los convierte en decisiones."*
+> *"Lo que no se puede medir, no se puede mejorar"*
 
 Prepárate para trabajar como un **ingeniero analítico**, con la precisión de un metrólogo y la visión de un especialista en mejora continua.
 
