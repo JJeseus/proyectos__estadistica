@@ -2,9 +2,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Ejercicios de Estadística",
+    "title": "Bienvenido",
     "section": "",
-    "text": "Esta página contiene ejercicios autocorregibles. Renderiza (Ctrl/Cmd+Shift+K) para refrescar datos."
+    "text": "Estadística Aplicada para la Ingeniería\nEste espacio es más que un compendio de fórmulas: es un laboratorio digital donde la teoría se combina con la práctica para generar habilidades reales de análisis y toma de decisiones.\nAquí encontrarás:\n\nFundamentos teóricos sólidos, presentados de forma clara y estructurada.\nEjemplos reales extraídos de entornos industriales y de control de calidad.\nEjercicios interactivos con R, ejecutables directamente en el navegador.\nMetodologías reconocidas en ingeniería, calidad y mejora continua.\n\nCada módulo está diseñado para que puedas comprender, aplicar y verificar los conceptos, simulando escenarios reales:\ndesde evaluar la capacidad de un proceso, hasta diseñar experimentos y analizar datos complejos.\n\n\n“En ingeniería, los datos son materia prima. La estadística es la maquinaria que los convierte en decisiones.”\n\nPrepárate para trabajar como un ingeniero analítico, con la precisión de un metrólogo y la visión de un especialista en mejora continua.\n\n📈 Recomendación:\nComienza por Fundamentos y avanza progresivamente. Cada módulo contiene retos diseñados para consolidar lo aprendido y ampliar tu criterio profesional."
   },
   {
     "objectID": "index.html#bienvenido",
@@ -19,5 +19,61 @@
     "title": "Ejercicios de Estadística",
     "section": "Ejercicio 1 — Media",
     "text": "Ejercicio 1 — Media"
+  },
+  {
+    "objectID": "index.html#ruta-de-aprendizaje",
+    "href": "index.html#ruta-de-aprendizaje",
+    "title": "Bienvenido",
+    "section": "",
+    "text": "Fundamentos → Medidas de tendencia y dispersión, percentiles, gráficos.\n\nProbabilidad → Reglas, distribuciones (Normal, Binomial, Poisson).\n\nMuestreo & Estimación → Error estándar, IC de medias y proporciones.\n\nPruebas de hipótesis → z, t, proporciones, potencia, tamaño de muestra.\n\nRegresión/ANOVA → Modelos lineales, supuestos, interpretación.\n\nCEP / SPC → Gráficas de control, capacidad de proceso (Cp, Cpk)."
+  },
+  {
+    "objectID": "index.html#mini-quiz-conceptos",
+    "href": "index.html#mini-quiz-conceptos",
+    "title": "Bienvenido",
+    "section": "",
+    "text": "Flashcards\n\n\n\n\n¿Qué es la media aritmética?\n\nEs la suma de todos los valores dividida entre el número de observaciones.\n\n\n\n¿Qué es la mediana?\n\nEs el valor central de un conjunto de datos ordenados. Si hay un número par de datos, es el promedio de los dos valores centrales.\n\n\n\n¿Qué es la moda?\n\nEs el valor que aparece con mayor frecuencia en un conjunto de datos.\n\n\n\n¿Qué es el IQR?\n\nEs el rango intercuartílico: P75 − P25, que mide la dispersión del 50% central de los datos.\n\n\n\n¿Qué es la varianza?\n\nEs la media de los cuadrados de las desviaciones respecto a la media, y mide la dispersión.\n\n\n\n¿Qué es la desviación estándar?\n\nEs la raíz cuadrada de la varianza y expresa la dispersión en las mismas unidades que los datos.\n\n\n\n¿Qué es un valor atípico?\n\nEs un valor que se aleja significativamente de la mayoría de los datos, según un criterio estadístico.\n\n\n\n¿Qué es un histograma?\n\nEs una representación gráfica de la distribución de frecuencia de un conjunto de datos.\n\n\n\n¿Qué es un boxplot?\n\nEs un gráfico que muestra la mediana, los cuartiles, el rango y los posibles valores atípicos de un conjunto de datos.\n\n\n\n¿Qué es un cuartil?\n\nEs cada uno de los tres valores que dividen a un conjunto de datos ordenados en cuatro partes iguales."
+  },
+  {
+    "objectID": "index.html#demo-ejecuta-r-webr",
+    "href": "index.html#demo-ejecuta-r-webr",
+    "title": "Bienvenido",
+    "section": "",
+    "text": "```{r} #| echo: true #| eval: false # Este chunk es informativo (Quarto), el código real se ejecuta abajo con webR."
+  },
+  {
+    "objectID": "modulos/01_fundamentos.html",
+    "href": "modulos/01_fundamentos.html",
+    "title": "Fundamentos",
+    "section": "",
+    "text": "Media, Mediana, Moda\nVarianza, Desviación Estándar, IQR\nSesgo y curtosis (interpretación básica)\n\n\n\n\nInstrucciones: pega tu vector x y calcula media, mediana, sd e IQR. Luego interpreta.\n\nx &lt;- c(12, 15, 19, 20, 21, 30, 42)\nlist(\n  media   = mean(x),\n  mediana = median(x),\n  sd      = sd(x),\n  IQR     = IQR(x)\n)\n  \n Ejecutar\n\n\n\n\n\n\nObjetivo: calcular media de gauss por marca y graficar.\n\n# Cargar paquetes base de webR\ninstall.packages(c(\"dplyr\",\"ggplot2\"), repos=\"https://cloud.r-project.org\")\nlibrary(dplyr); library(ggplot2)\n\n# Simulación de lectura: en producción, sirve el CSV desde /datasets\ndatos &lt;- data.frame(\n  fecha = as.Date(\"2024-01-01\") + 0:19,\n  marca = rep(c(\"A\",\"B\"), each=10),\n  gauss = c(rnorm(10, 80, 3), rnorm(10, 85, 4))\n)\n\nresumen &lt;- datos |&gt;\n  group_by(marca) |&gt;\n  summarise(media = mean(gauss), sd = sd(gauss), .groups=\"drop\")\n\nprint(resumen)\n\n# Grafico simple\np &lt;- ggplot(datos, aes(marca, gauss)) + \n  geom_boxplot() + \n  labs(title=\"Gauss por marca\")\nprint(p)\n  \n Ejecutar\n\n\n\n\n\n\n\n\n\n\nSi el IQR es 2.5, ¿qué indica sobre la dispersión central?\n¿Cuándo preferir mediana sobre media?\nExplica la diferencia entre sd y varianza."
+  },
+  {
+    "objectID": "modulos/01_fundamentos.html#conceptos-clave",
+    "href": "modulos/01_fundamentos.html#conceptos-clave",
+    "title": "Fundamentos",
+    "section": "",
+    "text": "Media, Mediana, Moda\nVarianza, Desviación Estándar, IQR\nSesgo y curtosis (interpretación básica)"
+  },
+  {
+    "objectID": "modulos/01_fundamentos.html#ejercicio-guiado-webr",
+    "href": "modulos/01_fundamentos.html#ejercicio-guiado-webr",
+    "title": "Fundamentos",
+    "section": "",
+    "text": "Instrucciones: pega tu vector x y calcula media, mediana, sd e IQR. Luego interpreta.\n\nx &lt;- c(12, 15, 19, 20, 21, 30, 42)\nlist(\n  media   = mean(x),\n  mediana = median(x),\n  sd      = sd(x),\n  IQR     = IQR(x)\n)\n  \n Ejecutar"
+  },
+  {
+    "objectID": "modulos/01_fundamentos.html#práctica-con-dataset-dplyr-ggplot2-en-webr",
+    "href": "modulos/01_fundamentos.html#práctica-con-dataset-dplyr-ggplot2-en-webr",
+    "title": "Fundamentos",
+    "section": "",
+    "text": "Objetivo: calcular media de gauss por marca y graficar.\n\n# Cargar paquetes base de webR\ninstall.packages(c(\"dplyr\",\"ggplot2\"), repos=\"https://cloud.r-project.org\")\nlibrary(dplyr); library(ggplot2)\n\n# Simulación de lectura: en producción, sirve el CSV desde /datasets\ndatos &lt;- data.frame(\n  fecha = as.Date(\"2024-01-01\") + 0:19,\n  marca = rep(c(\"A\",\"B\"), each=10),\n  gauss = c(rnorm(10, 80, 3), rnorm(10, 85, 4))\n)\n\nresumen &lt;- datos |&gt;\n  group_by(marca) |&gt;\n  summarise(media = mean(gauss), sd = sd(gauss), .groups=\"drop\")\n\nprint(resumen)\n\n# Grafico simple\np &lt;- ggplot(datos, aes(marca, gauss)) + \n  geom_boxplot() + \n  labs(title=\"Gauss por marca\")\nprint(p)\n  \n Ejecutar"
+  },
+  {
+    "objectID": "modulos/01_fundamentos.html#autoevaluación-quiz",
+    "href": "modulos/01_fundamentos.html#autoevaluación-quiz",
+    "title": "Fundamentos",
+    "section": "",
+    "text": "Si el IQR es 2.5, ¿qué indica sobre la dispersión central?\n¿Cuándo preferir mediana sobre media?\nExplica la diferencia entre sd y varianza."
   }
 ]

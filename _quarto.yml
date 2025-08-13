@@ -1,18 +1,44 @@
 project:
-  type: website          # Le dice a Quarto que es un sitio web
-  output-dir: docs       # Carpeta de salida (GitHub Pages usa /docs)
+  type: website
+  output-dir: docs
 
 website:
-  title: "Ejercicios de Estadística"   # Título que se verá en el navegador
-  navbar:                 # Barra de navegación
+  title: "Ejercicios de Estadística"
+  navbar:
     left:
-      - href: index.qmd
-        text: Inicio
+      - text: Inicio
+        href: index.qmd
+      - text: Módulos
+        menu:
+          - text: Fundamentos
+            href: modules/01_fundamentos.qmd
+          - text: Probabilidad
+            href: modules/02_probabilidad.qmd
+          - text: Muestreo
+            href: modules/03_muestreo.qmd
+          - text: Estimación
+            href: modules/04_estimacion.qmd
+          - text: Pruebas de Hipótesis
+            href: modules/05_pruebas.qmd
+          - text: Regresión/ANOVA
+            href: modules/06_regresion.qmd
+          - text: CEP / SPC
+            href: modules/07_spc.qmd
+  page-footer:
+    center: "© 2025 | Estadística práctica en R"
 
 format:
   html:
     theme: cosmo
     toc: true
+    toc-depth: 3
     smooth-scroll: true
-    css: assets/styles.css
-
+    css: styles.css
+    include-in-header:
+      text: |
+        <script src="https://webr.r-wasm.org/latest/webr.mjs" type="module"></script>
+        <script type="module">
+          import { WebR } from "https://webr.r-wasm.org/latest/webr.mjs";
+          window.webR = new WebR();
+          window.webR.init();
+        </script>

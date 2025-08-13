@@ -1,13 +1,28 @@
 ---
-title: "Ejercicios de Estadística"
-format:
-  html:
-    code-tools: true
-    code-fold: true
+title: "Bienvenido"
 ---
 
-## Bienvenido
+# Estadística Aplicada para la Ingeniería
 
-Esta página contiene ejercicios autocorregibles. Renderiza (Ctrl/Cmd+Shift+K) para refrescar datos.
+Este espacio es más que un compendio de fórmulas: es un **laboratorio digital** donde la teoría se combina con la práctica para generar habilidades reales de análisis y toma de decisiones.
 
-## Ejercicio 1 — Media
+Aquí encontrarás:
+
+-   **Fundamentos teóricos sólidos**, presentados de forma clara y estructurada.
+-   **Ejemplos reales** extraídos de entornos industriales y de control de calidad.
+-   **Ejercicios interactivos** con R, ejecutables directamente en el navegador.
+-   **Metodologías reconocidas** en ingeniería, calidad y mejora continua.
+
+Cada módulo está diseñado para que puedas **comprender, aplicar y verificar** los conceptos, simulando escenarios reales:\
+desde evaluar la capacidad de un proceso, hasta diseñar experimentos y analizar datos complejos.
+
+------------------------------------------------------------------------
+
+> *"En ingeniería, los datos son materia prima. La estadística es la maquinaria que los convierte en decisiones."*
+
+Prepárate para trabajar como un **ingeniero analítico**, con la precisión de un metrólogo y la visión de un especialista en mejora continua.
+
+------------------------------------------------------------------------
+
+📈 **Recomendación:**\
+Comienza por **Fundamentos** y avanza progresivamente. Cada módulo contiene retos diseñados para consolidar lo aprendido y ampliar tu criterio profesional.

@@ -2,53 +2,62 @@
 body {
   font-family: "Segoe UI", Roboto, Arial, sans-serif;
   line-height: 1.6;
-  background-color: #f8f9fa;
-  color: #333;
+  background-color: #fafafa;
+  color: #222;
+  margin: 0;
   padding-top: 20px;
 }
 
 /* ======== Títulos ======== */
 h1, h2, h3 {
-  font-weight: 600;
-  color: #155724; /* Verde oscuro */
+  font-weight: 500;
+  color: #111;
+  margin-bottom: 0.5em;
 }
 
 /* ======== Barra de navegación ======== */
 .navbar {
-  background-color: #198754 !important; /* Verde Bootstrap */
+  background-color: #fff !important;
+  border-bottom: 1px solid #eaeaea;
 }
 .navbar a, .navbar-brand {
-  color: white !important;
+  color: #555 !important;
+  text-decoration: none;
 }
 .navbar a:hover {
-  background-color: #146c43 !important;
+  color: #000 !important;
+  background-color: transparent !important;
 }
 
 /* ======== Botones ======== */
 button {
-  background-color: #198754;
+  background-color: #222;
   color: white;
   border: none;
-  padding: 6px 12px;
-  margin-top: 5px;
-  border-radius: 4px;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.9rem;
   cursor: pointer;
+  transition: background 0.2s ease;
 }
 button:hover {
-  background-color: #146c43;
+  background-color: #555;
 }
 
-/* ======== Inputs numéricos ======== */
-input[type=number] {
-  padding: 4px;
+/* ======== Inputs ======== */
+input[type=number], input[type=text], select {
+  padding: 6px 8px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* ======== Bloques de resultado ======== */
 #out_media, #out_var, #out_sd {
   margin-top: 10px;
-  font-weight: bold;
+  font-weight: 500;
 }
 #out_media:empty, #out_var:empty, #out_sd:empty {
   display: none;
@@ -60,20 +69,22 @@ table {
   border-collapse: collapse;
   width: 100%;
   margin-bottom: 1rem;
+  font-size: 0.9rem;
 }
 table th {
-  background-color: #198754;
-  color: white;
-  padding: 8px;
+  background-color: #f4f4f4;
+  color: #222;
+  padding: 10px;
+  font-weight: 500;
 }
 table td {
   padding: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid #eaeaea;
 }
 
-/* ======== Mensajes correctos/incorrectos ======== */
+/* ======== Mensajes ======== */
 .correcto {
-  color: #198754;
+  color: #28a745;
 }
 .incorrecto {
   color: #dc3545;
