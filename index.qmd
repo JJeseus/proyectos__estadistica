@@ -33,10 +33,3 @@ Probabilidad, estimación y control estadístico.
 ::: {.custom-card}
 ### Proximamente...
 :::
-
-<<<<<<< HEAD
-> *"Lo que no se puede medir, no se puede mejorar"*
-=======
->>>>>>> 9404d2f (Actualizacion)
-
-:::
