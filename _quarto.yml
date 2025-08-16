@@ -33,7 +33,8 @@ format:
     toc: true
     toc-depth: 3
     smooth-scroll: true
-    css: styles.css
+    css: assets/styles.css
+    js: assets/scrip.js
     include-in-header:
       text: |
         <script src="https://webr.r-wasm.org/latest/webr.mjs" type="module"></script>
@@ -42,3 +43,4 @@ format:
           window.webR = new WebR();
           window.webR.init();
         </script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>

@@ -1,28 +1,42 @@
 ---
-title: "Bienvenido"
+title: "Inicio"
+format: 
+  html:
+    html-math-method: mathjax
+    toc: false
+    theme: cosmo
+    css: assets/styles.css
+    js: assets/scrips.js
+    include-in-header:
+      text: |
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 ---
 
-# Estadística Aplicada para la Ingeniería
+::: {.hero}
+## Estadística Aplicada para Ingeniería
+Laboratorio digital donde teoría y práctica se encuentran.
 
-Este espacio es más que un compendio de fórmulas: es un **laboratorio digital** donde la teoría se combina con la práctica para generar habilidades reales de análisis y toma de decisiones.
+[Comenzar](modules/01_fundamentos.qmd){.btn .btn-primary}
+:::
 
-Aquí encontrarás:
+## Secciones {#secciones}
 
--   **Fundamentos teóricos sólidos**, presentados de forma clara y estructurada.
--   **Ejemplos reales** extraídos de entornos industriales y de control de calidad.
--   **Ejercicios interactivos** con R, ejecutables directamente en el navegador.
--   **Metodologías reconocidas** en ingeniería, calidad y mejora continua.
+::: {.custom-cards}
 
-Cada módulo está diseñado para que puedas **comprender, aplicar y verificar** los conceptos, simulando escenarios reales:\
-desde evaluar la capacidad de un proceso, hasta diseñar experimentos y analizar datos complejos.
+::: {.custom-card}
+### <i class="bi bi-folder-plus"></i> Fundamentos
+Probabilidad, estimación y control estadístico.  
+[Entrar →](modules/01_fundamentos.qmd)
+:::
 
-------------------------------------------------------------------------
+::: {.custom-card}
+### Proximamente...
+:::
 
+<<<<<<< HEAD
 > *"Lo que no se puede medir, no se puede mejorar"*
+=======
+>>>>>>> 9404d2f (Actualizacion)
 
-Prepárate para trabajar como un **ingeniero analítico**, con la precisión de un metrólogo y la visión de un especialista en mejora continua.
-
-------------------------------------------------------------------------
-
-📈 **Recomendación:**\
-Comienza por **Fundamentos** y avanza progresivamente. Cada módulo contiene retos diseñados para consolidar lo aprendido y ampliar tu criterio profesional.
+:::

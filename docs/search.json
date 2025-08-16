@@ -2,9 +2,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Bienvenido",
+    "title": "Inicio",
     "section": "",
-    "text": "Estadística Aplicada para la Ingeniería\nEste espacio es más que un compendio de fórmulas: es un laboratorio digital donde la teoría se combina con la práctica para generar habilidades reales de análisis y toma de decisiones.\nAquí encontrarás:\n\nFundamentos teóricos sólidos, presentados de forma clara y estructurada.\nEjemplos reales extraídos de entornos industriales y de control de calidad.\nEjercicios interactivos con R, ejecutables directamente en el navegador.\nMetodologías reconocidas en ingeniería, calidad y mejora continua.\n\nCada módulo está diseñado para que puedas comprender, aplicar y verificar los conceptos, simulando escenarios reales:\ndesde evaluar la capacidad de un proceso, hasta diseñar experimentos y analizar datos complejos.\n\n\n“En ingeniería, los datos son materia prima. La estadística es la maquinaria que los convierte en decisiones.”\n\nPrepárate para trabajar como un ingeniero analítico, con la precisión de un metrólogo y la visión de un especialista en mejora continua.\n\n📈 Recomendación:\nComienza por Fundamentos y avanza progresivamente. Cada módulo contiene retos diseñados para consolidar lo aprendido y ampliar tu criterio profesional."
+    "text": "Laboratorio digital donde teoría y práctica se encuentran.\nComenzar"
   },
   {
     "objectID": "index.html#bienvenido",
@@ -46,7 +46,7 @@
     "href": "modulos/01_fundamentos.html",
     "title": "Fundamentos",
     "section": "",
-    "text": "Media, Mediana, Moda\nVarianza, Desviación Estándar, IQR\nSesgo y curtosis (interpretación básica)\n\n\n\n\nInstrucciones: pega tu vector x y calcula media, mediana, sd e IQR. Luego interpreta.\n\nx &lt;- c(12, 15, 19, 20, 21, 30, 42)\nlist(\n  media   = mean(x),\n  mediana = median(x),\n  sd      = sd(x),\n  IQR     = IQR(x)\n)\n  \n Ejecutar\n\n\n\n\n\n\nObjetivo: calcular media de gauss por marca y graficar.\n\n# Cargar paquetes base de webR\ninstall.packages(c(\"dplyr\",\"ggplot2\"), repos=\"https://cloud.r-project.org\")\nlibrary(dplyr); library(ggplot2)\n\n# Simulación de lectura: en producción, sirve el CSV desde /datasets\ndatos &lt;- data.frame(\n  fecha = as.Date(\"2024-01-01\") + 0:19,\n  marca = rep(c(\"A\",\"B\"), each=10),\n  gauss = c(rnorm(10, 80, 3), rnorm(10, 85, 4))\n)\n\nresumen &lt;- datos |&gt;\n  group_by(marca) |&gt;\n  summarise(media = mean(gauss), sd = sd(gauss), .groups=\"drop\")\n\nprint(resumen)\n\n# Grafico simple\np &lt;- ggplot(datos, aes(marca, gauss)) + \n  geom_boxplot() + \n  labs(title=\"Gauss por marca\")\nprint(p)\n  \n Ejecutar\n\n\n\n\n\n\n\n\n\n\nSi el IQR es 2.5, ¿qué indica sobre la dispersión central?\n¿Cuándo preferir mediana sobre media?\nExplica la diferencia entre sd y varianza."
+    "text": "Hola mundo"
   },
   {
     "objectID": "modulos/01_fundamentos.html#conceptos-clave",
@@ -75,5 +75,26 @@
     "title": "Fundamentos",
     "section": "",
     "text": "Si el IQR es 2.5, ¿qué indica sobre la dispersión central?\n¿Cuándo preferir mediana sobre media?\nExplica la diferencia entre sd y varianza."
+  },
+  {
+    "objectID": "modules/01_fundamentos.html",
+    "href": "modules/01_fundamentos.html",
+    "title": "Fundamentos",
+    "section": "",
+    "text": "Hola mundo"
+  },
+  {
+    "objectID": "index.html#secciones",
+    "href": "index.html#secciones",
+    "title": "Inicio",
+    "section": "Secciones",
+    "text": "Secciones\n\n\n Fundamentos\nProbabilidad, estimación y control estadístico.\nEntrar →\n\n\nProximamente…"
+  },
+  {
+    "objectID": "index.html#estadística-aplicada-para-ingeniería",
+    "href": "index.html#estadística-aplicada-para-ingeniería",
+    "title": "Inicio",
+    "section": "",
+    "text": "Laboratorio digital donde teoría y práctica se encuentran.\nComenzar"
   }
 ]
