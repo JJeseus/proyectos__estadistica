@@ -7,20 +7,6 @@
     "text": "Hola mundo"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Inicio",
-    "section": "",
-    "text": "&lt;!-- Punto que recorre la línea --&gt;\n&lt;circle r=\"6\" fill=\"#7BAD0F\"&gt;\n  &lt;animateMotion dur=\"6s\" repeatCount=\"indefinite\" rotate=\"auto\"&gt;\n    &lt;mpath href=\"#trayectoria\"/&gt;\n  &lt;/animateMotion&gt;\n  &lt;!-- Glow --&gt;\n  &lt;animate attributeName=\"r\" values=\"6;8;6\" dur=\"1s\" repeatCount=\"indefinite\"/&gt;\n&lt;/circle&gt;\n\n&lt;!-- Glow efecto --&gt;\n&lt;defs&gt;\n  &lt;filter id=\"glow\"&gt;\n    &lt;feGaussianBlur stdDeviation=\"4\" result=\"blur\"/&gt;\n    &lt;feMerge&gt;\n      &lt;feMergeNode in=\"blur\"/&gt;\n      &lt;feMergeNode in=\"SourceGraphic\"/&gt;\n    &lt;/feMerge&gt;\n  &lt;/filter&gt;\n&lt;/defs&gt;"
-  },
-  {
-    "objectID": "index.html#para-ingeniería",
-    "href": "index.html#para-ingeniería",
-    "title": "Inicio",
-    "section": "",
-    "text": "Métodos prácticos para transformar datos en decisiones, integrando análisis predictivo, simulaciones y visualización interactiva."
-  },
-  {
     "objectID": "index.html#datos-modelos-y-procesos",
     "href": "index.html#datos-modelos-y-procesos",
     "title": "Inicio",
