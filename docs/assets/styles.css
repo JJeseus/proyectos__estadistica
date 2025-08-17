@@ -2,35 +2,170 @@
    1. Base Reset
    ================================ */
 body {
-  font-family: "Inter", sans-serif;
-  margin: 0.5em;
-  padding: 0;
-  background: #f4f6f9;
-  color: #333;
+  background-color: #fff;
+  background-image:
+    linear-gradient(to right, rgba(123,173,15,0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(123,173,15,0.15) 1px, transparent 1px);
+  background-size: 120px 120px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+
+.fondo-animado {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;   /* siempre atrás del contenido */
+  opacity: 0.6;
+  pointer-events: none; /* para que no bloquee clics */
+}
+
+
+html {
+  scroll-behavior: smooth;
 }
 
 /* ================================
-   2. Hero Section
+   Hero estilo Terminal
    ================================ */
-.hero {
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
-  color: white;
+.hero-terminal {
+  background: #0d0d0d;
+  color: #7BAD0F;
   padding: 6rem 2rem;
   text-align: center;
-  border-radius: 30px;
+  border-radius: 15px;
   margin-bottom: 3rem;
-  animation: fadeIn 1s ease-in-out;
+  font-family: "Fira Code", "Courier New", monospace;
+  position: relative;
+  overflow: hidden;
 }
 
-.hero h1 {
-  font-size: 3rem;
-  font-weight: 800;
+.hero-terminal h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
   margin-bottom: 1rem;
 }
 
-.hero p {
+.hero-terminal .typewriter {
+  display: inline-block;
   font-size: 1.2rem;
-  opacity: 0.9;
+  border-right: 2px solid #7BAD0F;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 3s steps(40, end), blink 0.75s step-end infinite;
+}
+
+/* Animación de escritura */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+@keyframes blink {
+  from, to { border-color: transparent }
+  50% { border-color: #7BAD0F }
+}
+
+/* Bloque de texto tipo presentación */
+.presentacion {
+  max-width: 500px;
+}
+
+.presentacion h1 {
+  font-size: 3rem;
+  font-weight: 1000;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(90deg, #7BAD0F 10%, #111 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 100%;
+  background-position: 0% 0%;
+  transition: background-position 0.2s linear;
+}
+
+.presentacion h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #444;
+}
+
+.presentacion p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+.presentacion p strong {
+  color: #111;  /* resalta clave */
+}
+
+.presentacion p .resaltado {
+  color: #7BAD0F; /* verde terminal */
+  font-weight: 600;
+}
+/* ================================
+   Barra estilo Terminal transparente
+   ================================ */
+.navbar {
+  background: linear-gradient(
+    to right,
+    rgba(180, 180, 180, 0.85),
+    rgba(40, 40, 40, 0.85)
+  ) !important;
+  border-radius: 16px;
+  padding: 0.8rem 2rem;
+  font-family: "Inter", sans-serif;
+  display: flex;
+  align-items: center;
+  backdrop-filter: blur(6px); /* efecto vidrio */
+  -webkit-backdrop-filter: blur(6px);
+  position: fixed;      /* fija la barra */
+  top: 20px;            /* separación desde arriba */
+  left: 50%;
+  transform: translateX(-50%); /* centrada */
+  width: 90%;           /* opcional: ancho menor que toda la pantalla */
+  z-index: 9999;        /* se queda siempre encima */
+}
+
+
+.navbar-brand {
+  font-weight: 700;
+  color: white !important;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand img {
+  height: 28px;
+  margin-right: 10px;
+}
+
+.navbar-nav {
+  margin-left: auto;
+  display: flex;
+  gap: 2rem;
+}
+
+.navbar-nav .nav-link {
+  color: white !important;
+  text-decoration: none;
+  font-weight: 400;
+  transition: color 0.2s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #7BAD0F !important; /* Verde terminal */
+}
+
+.navbar-nav .nav-link.active {
+  color: #7BAD0F !important;
+  font-weight: 600;
 }
 
 /* ================================
@@ -71,8 +206,8 @@ body {
    ================================ */
 .custom-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 6rem;
   margin: 2rem 0;
 }
 
@@ -98,9 +233,8 @@ body {
   margin-top: 0.5rem;
   text-decoration: none;
   font-weight: bold;
-  color: #198754;
+  color: #7BAD0F;
 }
-
 
 /* ================================
    5. Animations
@@ -117,3 +251,199 @@ body {
 
 .fade-in.delay-1 { animation-delay: 0.3s; }
 .fade-in.delay-2 { animation-delay: 0.6s; }
+
+/* ================================
+   Fondo estilo terminal
+   ================================ */
+.terminal-background {
+  background: #0d0d0d; /* negro industrial */
+  color: #7BAD0F; /* texto terminal por defecto */
+  min-height: 100vh; /* ocupa toda la pantalla */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+}
+
+/* ================================
+   Ventana blanca superpuesta
+   ================================ */
+.window-content {
+  background: #ffffff;
+  color: #333;
+  border-radius: 20px;
+  padding: 3rem;
+  max-width: 900px;
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  position: relative;
+  z-index: 10;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Opcional: borde sutil alrededor de la ventana */
+.window-content::before {
+  content: "";
+  position: absolute;
+  top: -10px; left: -10px; right: -10px; bottom: -10px;
+  border: 1px solid rgba(0,255,102,0.2);
+  border-radius: 25px;
+  pointer-events: none;
+}
+
+/* Layout dos columnas */
+.layout-dos-columnas {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 12rem;
+  padding: 5rem 2rem;
+  min-height: 80vh;
+}
+
+/* Columna izquierda */
+.columna-izquierda {
+  flex: 1.5;
+  color: #222;
+}
+
+.columna-izquierda h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.columna-izquierda h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.columna-izquierda p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Columna derecha */
+.columna-derecha {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Ventana estilo terminal */
+.ventana-terminal {
+  background: #0d0d0d;
+  color: #7BAD0F;
+  font-family: "Roboto Mono", monospace; /* aquí aplicamos Roboto Mono */
+  border-radius: 12px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 450;
+  min-height: 600px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  font-size: 0.95rem;
+  line-height: 1.5rem;
+}
+
+
+/* Simulación de cursor */
+.ventana-terminal::after {
+  content: "_";
+  animation: blink 1s infinite;
+  margin-left: 3px;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.cursor {
+  display: inline-block;
+  width: 8px;
+  background: #7BAD0F; /* verde terminal */
+  margin-left: 3px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.ventana-terminal pre,
+.ventana-terminal code {
+  background: transparent !important;
+  color: #7BAD0F !important; /* verde terminal */
+  font-family: "Roboto Mono", monospace;
+  font-size: 0.95rem;
+  border: none;
+  padding: 0;
+  box-shadow: none;
+}
+
+.ventana-terminal::before {
+  content: "● ● ●";
+  color: #555;
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  font-size: 0.8rem;
+  letter-spacing: 4px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+
+.ventana-terminal canvas {
+  display: block;
+  max-width: 100%;
+  border-radius: 6px;
+}
+
+/* ================================
+   Dropdown estilo Terminal
+   ================================ */
+.navbar-nav .dropdown-menu {
+  background: rgba(20, 20, 20, 0.9);  /* fondo oscuro semitransparente */
+  border: 1px solid rgba(123, 173, 15, 0.3); /* borde verde sutil */
+  border-radius: 8px;
+  padding: 0.5rem 0;
+  min-width: 220px;
+  backdrop-filter: blur(4px);
+}
+
+.navbar-nav .dropdown-menu .dropdown-item {
+  color: white !important;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.95rem;
+  transition: background 0.2s, color 0.2s;
+}
+
+.navbar-nav .dropdown-menu .dropdown-item:hover {
+  background: #7BAD0F;   /* verde terminal */
+  color: #0d0d0d !important;  /* texto oscuro al hacer hover */
+}
+
+.navbar-nav .dropdown-toggle::after {
+  border-top-color: #7BAD0F; /* flechita en verde */
+}
+
+
+/* ================================
+   slides
+   ================================ */
+
+
+
+

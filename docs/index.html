@@ -67,14 +67,145 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<script src="https://webr.r-wasm.org/latest/webr.mjs" type="module"></script>
+<script type="module">
+  import { WebR } from "https://webr.r-wasm.org/latest/webr.mjs";
+  window.webR = new WebR();
+  window.webR.init();
+</script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+<script>
+// ====== CURVA NORMAL ======
+document.addEventListener("DOMContentLoaded", () => {
+  const host = document.getElementById("grafica-normal");
+  if (!host) return;
+
+  const c = document.createElement("canvas");
+  host.innerHTML = ""; host.appendChild(c);
+  const ctx = c.getContext("2d");
+
+  function resize() {
+    const r = host.getBoundingClientRect();
+    c.width  = Math.max(360, Math.floor(r.width));
+    c.height = Math.max(180, Math.floor(r.height));
+    start = null;
+  }
+  window.addEventListener("resize", resize);
+
+  const X = Array.from({length: 241}, (_, i) => -4 + i*0.0335);
+  const Y = X.map(t => Math.exp(-0.5*t*t)/Math.sqrt(2*Math.PI));
+  const maxY = Math.max(...Y);
+
+  const pad = 22;
+  const mapX = (v,w) => pad + (v+4)/8 * (w - 2*pad);
+  const mapY = (v,h) => h - pad - (v/maxY) * (h - 2*pad);
+
+  let start = null;
+  const drawMs = 5000;
+  const holdMs = 50;
+  const total  = drawMs + holdMs;
+
+  const baseMsg = "PROCESANDO DATOS...";
+  const typeSpeed = 55;
+  function typedText(ts) {
+    const chars = Math.min(baseMsg.length, Math.floor(ts/typeSpeed));
+    return baseMsg.slice(0, chars);
+  }
+
+  function draw(ts) {
+    if (start === null) start = ts;
+    const w = c.width, h = c.height;
+
+    ctx.clearRect(0,0,w,h);
+    ctx.fillStyle = "#0d0d0d";
+    ctx.fillRect(0,0,w,h);
+
+    ctx.font = "12px Roboto Mono, monospace";
+    ctx.fillStyle = "#628E12";
+    ctx.fillText("Normal(0,1)", pad, pad - 6);
+
+    const scanY = (ts/20) % h;
+    ctx.fillStyle = "rgba(255,255,255,0.02)";
+    ctx.fillRect(0, scanY, w, 2);
+
+    let t = (ts - start) % total;
+    let prog = Math.min(1, t / drawMs);
+    prog = 1 - Math.pow(1 - prog, 3);
+    const cut = Math.max(2, Math.floor(prog * X.length));
+
+    ctx.strokeStyle = "#223322";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(mapX(-4,w), mapY(0,h));
+    ctx.lineTo(mapX( 4,w), mapY(0,h));
+    ctx.stroke();
+
+    ctx.strokeStyle = "#7BAD0F";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    for (let i = 0; i < cut; i++) {
+      const px = mapX(X[i], w), py = mapY(Y[i], h);
+      if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+
+    if (cut < X.length) {
+      const px = mapX(X[cut-1], w), py = mapY(Y[cut-1], h);
+      ctx.fillStyle = "#9ED13A";
+      ctx.beginPath(); ctx.arc(px, py, 3, 0, Math.PI*2); ctx.fill();
+    }
+
+    const sepY = Math.round(h*0.55);
+    ctx.strokeStyle = "#223322";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(pad, sepY);
+    ctx.lineTo(w - pad, sepY);
+    ctx.stroke();
+
+    const msg = typedText(ts - start);
+    const blink = Math.floor(ts/500)%2 === 0 ? "_" : " ";
+    ctx.font = "14px Roboto Mono, monospace";
+    ctx.fillStyle = "#7BAD0F";
+    ctx.fillText(msg + " " + blink, pad, sepY + 20);
+
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  requestAnimationFrame(draw);
+});
+
+// ====== PANEL SLIDE PARA CARDS ======
+document.addEventListener("DOMContentLoaded", () => {
+  const panel = document.querySelector(".panel-slide");
+  if (!panel) return;
+
+  document.querySelectorAll(".card-modulo").forEach(card => {
+    card.addEventListener("mouseenter", () => {
+      panel.classList.add("activo");
+      panel.innerHTML = card.querySelector(".contenido").innerHTML;
+    });
+    card.addEventListener("mouseleave", () => {
+      panel.classList.remove("activo");
+    });
+  });
+});
+document.addEventListener("scroll", () => {
+  const titulo = document.querySelector(".presentacion h1");
+  if (!titulo) return;
+  const scrollTop = window.scrollY;
+  const docHeight = document.body.scrollHeight - window.innerHeight;
+  const scrollPercent = scrollTop / docHeight;
+  titulo.style.backgroundPosition = `${scrollPercent * 100}% 0%`;
+});
+</script>
 
 
 <link rel="stylesheet" href="assets/styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -141,7 +272,15 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#contenido" id="toc-contenido" class="nav-link active" data-scroll-target="#contenido">CONTENIDO</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -164,26 +303,102 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="estadística-aplicada-para-ingeniería" class="level2 hero">
-<h2 class="anchored" data-anchor-id="estadística-aplicada-para-ingeniería">Estadística Aplicada para Ingeniería</h2>
-<p>Laboratorio digital donde teoría y práctica se encuentran.</p>
-<p><a href="./modules/01_fundamentos.html" class="btn btn-primary">Comenzar</a></p>
+<div class="fondo-animado">
+<p><svg width="100%" height="100%" viewbox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid slice"> <!-- Trayectoria base --> <path id="trayectoria" d="M 0 300 Q 250 100 500 300 T 1000 300" stroke="rgba(0,0,0,0.15)" stroke-width="2" fill="none"></path> <!-- Punto oscuro más fino que la línea --> <rect x="-4" y="-1" width="5" height="2" rx="1" ry="1" fill="#111"> <animatemotion dur="6s" repeatcount="indefinite"> <mpath href="#trayectoria"></mpath> </animatemotion> </rect> <!-- Halo difuso --> <circle r="14" fill="#7BAD0F" opacity="0.25" filter="url(#halo)"> <animatemotion dur="6s" repeatcount="indefinite"> <mpath href="#trayectoria"></mpath> </animatemotion> </circle> <defs> <filter id="halo" x="-150%" y="-150%" width="400%" height="400%"> <fegaussianblur in="SourceGraphic" stddeviation="18"></fegaussianblur> </filter> </defs> </svg></p>
+</div>
+<div class="layout-dos-columnas">
+<section id="estadística-aplicada" class="level1 columna-izquierda presentacion">
+<h1>Estadística Aplicada</h1>
+<section id="datos-modelos-y-procesos" class="level2">
+<h2 class="anchored" data-anchor-id="datos-modelos-y-procesos">Datos, Modelos y Procesos</h2>
+<p>Métodos <strong>prácticos</strong> para transformar datos en decisiones, integrando <span class="resaltado">análisis predictivo</span>, simulaciones y visualización interactiva.</p>
 </section>
-<section id="secciones" class="level2">
-<h2 class="anchored" data-anchor-id="secciones">Secciones</h2>
+</section>
+<div class="columna-derecha">
+<div class="ventana-terminal fade-in">
+<div id="grafica-normal" style="width:100%;height:280px;margin-bottom:.5rem;">
+
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.56047565 -0.23017749  1.55870831  0.07050839  0.12928774  1.71506499
+[7]  0.46091621</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+------stats------</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>µ: 0.449 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>σ: 0.872 </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section id="contenido" class="level1 presentacion">
+<h1>CONTENIDO</h1>
+</section>
 <div class="custom-cards">
-<section id="fundamentos" class="level3 custom-card">
-<h3 class="anchored" data-anchor-id="fundamentos"><i class="bi bi-folder-plus"></i> Fundamentos</h3>
-<p>Probabilidad, estimación y control estadístico.<br>
-<a href="./modules/01_fundamentos.html">Entrar →</a></p>
+<div class="custom-card card-modulo">
+<section id="fundamentos" class="level3">
+<h3 class="anchored" data-anchor-id="fundamentos">Fundamentos</h3>
+<p>Introducción a los conceptos básicos de estadística.<br>
+<a href="fundamentos.qmd">Ver módulo →</a></p>
 </section>
-<section id="proximamente" class="level3 custom-card">
-<h3 class="anchored" data-anchor-id="proximamente">Proximamente…</h3>
+<section id="unidad-1" class="level3 contenido">
+<h3 class="anchored" data-anchor-id="unidad-1"><strong>Unidad 1</strong></h3>
+<ul>
+<li>Conceptos básicos<br>
+</li>
+<li>Variables y tipos<br>
+</li>
+<li>Escalas de medición<br>
+</li>
+</ul>
 </section>
+</div>
+<div class="custom-card card-modulo">
+<section id="probabilidad" class="level3">
+<h3 class="anchored" data-anchor-id="probabilidad"><strong>Probabilidad</strong></h3>
+<p>Análisis de sucesos aleatorios y distribuciones.<br>
+<a href="probabilidad.qmd">Ver módulo →</a></p>
+</section>
+<section id="unidad-2" class="level3 contenido">
+<h3 class="anchored" data-anchor-id="unidad-2"><strong>Unidad 2</strong></h3>
+<ul>
+<li>Sucesos aleatorios<br>
+</li>
+<li>Distribuciones<br>
+</li>
+<li>Esperanza matemática<br>
+</li>
+</ul>
+</section>
+</div>
+<div class="custom-card card-modulo">
+<section id="muestreo" class="level3">
+<h3 class="anchored" data-anchor-id="muestreo"><strong>Muestreo</strong></h3>
+<p>Técnicas y diseños para obtener muestras representativas.<br>
+<a href="muestreo.qmd">Ver módulo →</a></p>
+</section>
+<section id="unidad-3" class="level3 contenido">
+<h3 class="anchored" data-anchor-id="unidad-3"><strong>Unidad 3</strong></h3>
+<ul>
+<li>Tipos de muestreo<br>
+</li>
+<li>Tamaño de muestra<br>
+</li>
+<li>Errores de muestreo<br>
+</li>
+</ul>
+</section>
+</div>
 </div>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

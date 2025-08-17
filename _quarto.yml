@@ -1,6 +1,8 @@
 project:
   type: website
   output-dir: docs
+  resources:
+    - assets/**
 
 website:
   title: "Ejercicios de Estadística"
@@ -34,7 +36,7 @@ format:
     toc-depth: 3
     smooth-scroll: true
     css: assets/styles.css
-    js: assets/scrip.js
+    js: assets/scripts.js
     include-in-header:
       text: |
         <script src="https://webr.r-wasm.org/latest/webr.mjs" type="module"></script>

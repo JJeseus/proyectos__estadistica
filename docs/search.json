@@ -1,82 +1,5 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Inicio",
-    "section": "",
-    "text": "Laboratorio digital donde teoría y práctica se encuentran.\nComenzar"
-  },
-  {
-    "objectID": "index.html#bienvenido",
-    "href": "index.html#bienvenido",
-    "title": "Ejercicios de Estadística",
-    "section": "",
-    "text": "Esta página contiene ejercicios autocorregibles. Renderiza (Ctrl/Cmd+Shift+K) para refrescar datos."
-  },
-  {
-    "objectID": "index.html#ejercicio-1-media",
-    "href": "index.html#ejercicio-1-media",
-    "title": "Ejercicios de Estadística",
-    "section": "Ejercicio 1 — Media",
-    "text": "Ejercicio 1 — Media"
-  },
-  {
-    "objectID": "index.html#ruta-de-aprendizaje",
-    "href": "index.html#ruta-de-aprendizaje",
-    "title": "Bienvenido",
-    "section": "",
-    "text": "Fundamentos → Medidas de tendencia y dispersión, percentiles, gráficos.\n\nProbabilidad → Reglas, distribuciones (Normal, Binomial, Poisson).\n\nMuestreo & Estimación → Error estándar, IC de medias y proporciones.\n\nPruebas de hipótesis → z, t, proporciones, potencia, tamaño de muestra.\n\nRegresión/ANOVA → Modelos lineales, supuestos, interpretación.\n\nCEP / SPC → Gráficas de control, capacidad de proceso (Cp, Cpk)."
-  },
-  {
-    "objectID": "index.html#mini-quiz-conceptos",
-    "href": "index.html#mini-quiz-conceptos",
-    "title": "Bienvenido",
-    "section": "",
-    "text": "Flashcards\n\n\n\n\n¿Qué es la media aritmética?\n\nEs la suma de todos los valores dividida entre el número de observaciones.\n\n\n\n¿Qué es la mediana?\n\nEs el valor central de un conjunto de datos ordenados. Si hay un número par de datos, es el promedio de los dos valores centrales.\n\n\n\n¿Qué es la moda?\n\nEs el valor que aparece con mayor frecuencia en un conjunto de datos.\n\n\n\n¿Qué es el IQR?\n\nEs el rango intercuartílico: P75 − P25, que mide la dispersión del 50% central de los datos.\n\n\n\n¿Qué es la varianza?\n\nEs la media de los cuadrados de las desviaciones respecto a la media, y mide la dispersión.\n\n\n\n¿Qué es la desviación estándar?\n\nEs la raíz cuadrada de la varianza y expresa la dispersión en las mismas unidades que los datos.\n\n\n\n¿Qué es un valor atípico?\n\nEs un valor que se aleja significativamente de la mayoría de los datos, según un criterio estadístico.\n\n\n\n¿Qué es un histograma?\n\nEs una representación gráfica de la distribución de frecuencia de un conjunto de datos.\n\n\n\n¿Qué es un boxplot?\n\nEs un gráfico que muestra la mediana, los cuartiles, el rango y los posibles valores atípicos de un conjunto de datos.\n\n\n\n¿Qué es un cuartil?\n\nEs cada uno de los tres valores que dividen a un conjunto de datos ordenados en cuatro partes iguales."
-  },
-  {
-    "objectID": "index.html#demo-ejecuta-r-webr",
-    "href": "index.html#demo-ejecuta-r-webr",
-    "title": "Bienvenido",
-    "section": "",
-    "text": "```{r} #| echo: true #| eval: false # Este chunk es informativo (Quarto), el código real se ejecuta abajo con webR."
-  },
-  {
-    "objectID": "modulos/01_fundamentos.html",
-    "href": "modulos/01_fundamentos.html",
-    "title": "Fundamentos",
-    "section": "",
-    "text": "Hola mundo"
-  },
-  {
-    "objectID": "modulos/01_fundamentos.html#conceptos-clave",
-    "href": "modulos/01_fundamentos.html#conceptos-clave",
-    "title": "Fundamentos",
-    "section": "",
-    "text": "Media, Mediana, Moda\nVarianza, Desviación Estándar, IQR\nSesgo y curtosis (interpretación básica)"
-  },
-  {
-    "objectID": "modulos/01_fundamentos.html#ejercicio-guiado-webr",
-    "href": "modulos/01_fundamentos.html#ejercicio-guiado-webr",
-    "title": "Fundamentos",
-    "section": "",
-    "text": "Instrucciones: pega tu vector x y calcula media, mediana, sd e IQR. Luego interpreta.\n\nx &lt;- c(12, 15, 19, 20, 21, 30, 42)\nlist(\n  media   = mean(x),\n  mediana = median(x),\n  sd      = sd(x),\n  IQR     = IQR(x)\n)\n  \n Ejecutar"
-  },
-  {
-    "objectID": "modulos/01_fundamentos.html#práctica-con-dataset-dplyr-ggplot2-en-webr",
-    "href": "modulos/01_fundamentos.html#práctica-con-dataset-dplyr-ggplot2-en-webr",
-    "title": "Fundamentos",
-    "section": "",
-    "text": "Objetivo: calcular media de gauss por marca y graficar.\n\n# Cargar paquetes base de webR\ninstall.packages(c(\"dplyr\",\"ggplot2\"), repos=\"https://cloud.r-project.org\")\nlibrary(dplyr); library(ggplot2)\n\n# Simulación de lectura: en producción, sirve el CSV desde /datasets\ndatos &lt;- data.frame(\n  fecha = as.Date(\"2024-01-01\") + 0:19,\n  marca = rep(c(\"A\",\"B\"), each=10),\n  gauss = c(rnorm(10, 80, 3), rnorm(10, 85, 4))\n)\n\nresumen &lt;- datos |&gt;\n  group_by(marca) |&gt;\n  summarise(media = mean(gauss), sd = sd(gauss), .groups=\"drop\")\n\nprint(resumen)\n\n# Grafico simple\np &lt;- ggplot(datos, aes(marca, gauss)) + \n  geom_boxplot() + \n  labs(title=\"Gauss por marca\")\nprint(p)\n  \n Ejecutar"
-  },
-  {
-    "objectID": "modulos/01_fundamentos.html#autoevaluación-quiz",
-    "href": "modulos/01_fundamentos.html#autoevaluación-quiz",
-    "title": "Fundamentos",
-    "section": "",
-    "text": "Si el IQR es 2.5, ¿qué indica sobre la dispersión central?\n¿Cuándo preferir mediana sobre media?\nExplica la diferencia entre sd y varianza."
-  },
-  {
     "objectID": "modules/01_fundamentos.html",
     "href": "modules/01_fundamentos.html",
     "title": "Fundamentos",
@@ -84,17 +7,24 @@
     "text": "Hola mundo"
   },
   {
-    "objectID": "index.html#secciones",
-    "href": "index.html#secciones",
-    "title": "Inicio",
-    "section": "Secciones",
-    "text": "Secciones\n\n\n Fundamentos\nProbabilidad, estimación y control estadístico.\nEntrar →\n\n\nProximamente…"
-  },
-  {
-    "objectID": "index.html#estadística-aplicada-para-ingeniería",
-    "href": "index.html#estadística-aplicada-para-ingeniería",
+    "objectID": "index.html",
+    "href": "index.html",
     "title": "Inicio",
     "section": "",
-    "text": "Laboratorio digital donde teoría y práctica se encuentran.\nComenzar"
+    "text": "&lt;!-- Punto que recorre la línea --&gt;\n&lt;circle r=\"6\" fill=\"#7BAD0F\"&gt;\n  &lt;animateMotion dur=\"6s\" repeatCount=\"indefinite\" rotate=\"auto\"&gt;\n    &lt;mpath href=\"#trayectoria\"/&gt;\n  &lt;/animateMotion&gt;\n  &lt;!-- Glow --&gt;\n  &lt;animate attributeName=\"r\" values=\"6;8;6\" dur=\"1s\" repeatCount=\"indefinite\"/&gt;\n&lt;/circle&gt;\n\n&lt;!-- Glow efecto --&gt;\n&lt;defs&gt;\n  &lt;filter id=\"glow\"&gt;\n    &lt;feGaussianBlur stdDeviation=\"4\" result=\"blur\"/&gt;\n    &lt;feMerge&gt;\n      &lt;feMergeNode in=\"blur\"/&gt;\n      &lt;feMergeNode in=\"SourceGraphic\"/&gt;\n    &lt;/feMerge&gt;\n  &lt;/filter&gt;\n&lt;/defs&gt;"
+  },
+  {
+    "objectID": "index.html#para-ingeniería",
+    "href": "index.html#para-ingeniería",
+    "title": "Inicio",
+    "section": "",
+    "text": "Métodos prácticos para transformar datos en decisiones, integrando análisis predictivo, simulaciones y visualización interactiva."
+  },
+  {
+    "objectID": "index.html#datos-modelos-y-procesos",
+    "href": "index.html#datos-modelos-y-procesos",
+    "title": "Inicio",
+    "section": "Datos, Modelos y Procesos",
+    "text": "Datos, Modelos y Procesos\nMétodos prácticos para transformar datos en decisiones, integrando análisis predictivo, simulaciones y visualización interactiva."
   }
 ]
