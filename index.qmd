@@ -1,7 +1,9 @@
 ---
-title: "Inicio"
+title: ""
 format:
   html:
+    title-block-banner: false
+    toc: false
     css: 
       - assets/styles.css
     include-in-header:
@@ -137,27 +139,25 @@ format:
 <div class="fondo-animado">
   <svg width="100%" height="100%" viewBox="0 0 1000 600"
        xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-    <!-- Trayectoria base -->
     <path id="trayectoria" 
           d="M 0 300 Q 250 100 500 300 T 1000 300"
           stroke="rgba(0,0,0,0.15)"
           stroke-width="2"
           fill="none"/>
-    <!-- Punto oscuro más fino que la línea -->
+    <circle r="20" fill="#7BAD0F" opacity="0.6" filter="url(#halo)">
+      <animate attributeName="opacity" values="0.2;0.6;0.2" dur="2s" repeatCount="indefinite"/>
+      <animateMotion dur="6s" repeatCount="indefinite">
+        <mpath xlink:href="#trayectoria"/>
+      </animateMotion>
+    </circle>
     <rect x="-4" y="-1" width="5" height="2" rx="1" ry="1" fill="#111">
       <animateMotion dur="6s" repeatCount="indefinite">
         <mpath xlink:href="#trayectoria"/>
       </animateMotion>
     </rect>
-    <!-- Halo difuso -->
-    <circle r="14" fill="#7BAD0F" opacity="0.25" filter="url(#halo)">
-      <animateMotion dur="6s" repeatCount="indefinite">
-        <mpath xlink:href="#trayectoria"/>
-      </animateMotion>
-    </circle>
     <defs>
       <filter id="halo" x="-150%" y="-150%" width="400%" height="400%">
-        <feGaussianBlur in="SourceGraphic" stdDeviation="18"/>
+        <feGaussianBlur in="SourceGraphic" stdDeviation="25"/>
       </filter>
     </defs>
   </svg>
@@ -166,15 +166,7 @@ format:
 
 
 
-
-
-
-
-
-
-
 ::: {.layout-dos-columnas}
-
 ::: {.columna-izquierda .presentacion}
 # Estadística Aplicada
 ## Datos, Modelos y Procesos
@@ -219,7 +211,6 @@ cat("σ:",sd,"\n")
 :::
 
 ::: {.custom-cards}
-
 ::: {.custom-card .card-modulo}
 ### Fundamentos
 Introducción a los conceptos básicos de estadística.  
@@ -258,7 +249,6 @@ Técnicas y diseños para obtener muestras representativas.
 - Errores de muestreo  
 :::
 :::
-
 :::
 
 
