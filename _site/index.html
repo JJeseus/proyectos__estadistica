@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Inicio – Ejercicios de Estadística</title>
+<title>Ejercicios de Estadistica – Ejercicios de Estadística</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -40,11 +40,11 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-6bd9cfa162949bde0a231f530c97869d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
+  "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
+  "panel-placement": "start",
+  "type": "textbox",
   "limit": 50,
   "keyboard-shortcut": [
     "f",
@@ -67,7 +67,6 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
-<script src="assets/scripts.js"></script>
 <script src="https://webr.r-wasm.org/latest/webr.mjs" type="module"></script>
 <script type="module">
   import { WebR } from "https://webr.r-wasm.org/latest/webr.mjs";
@@ -75,77 +74,234 @@ ul.task-list li input[type="checkbox"] {
   window.webR.init();
 </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+<script>
+// ====== CURVA NORMAL ======
+document.addEventListener("DOMContentLoaded", () => {
+  const host = document.getElementById("grafica-normal");
+  if (!host) return;
+
+  const c = document.createElement("canvas");
+  host.innerHTML = ""; host.appendChild(c);
+  const ctx = c.getContext("2d");
+
+  function resize() {
+    const r = host.getBoundingClientRect();
+    c.width  = Math.max(360, Math.floor(r.width));
+    c.height = Math.max(180, Math.floor(r.height));
+    start = null;
+  }
+  window.addEventListener("resize", resize);
+
+  const X = Array.from({length: 241}, (_, i) => -4 + i*0.0335);
+  const Y = X.map(t => Math.exp(-0.5*t*t)/Math.sqrt(2*Math.PI));
+  const maxY = Math.max(...Y);
+
+  const pad = 22;
+  const mapX = (v,w) => pad + (v+4)/8 * (w - 2*pad);
+  const mapY = (v,h) => h - pad - (v/maxY) * (h - 2*pad);
+
+  let start = null;
+  const drawMs = 5000;
+  const holdMs = 50;
+  const total  = drawMs + holdMs;
+
+  const baseMsg = "PROCESANDO DATOS...";
+  const typeSpeed = 55;
+  function typedText(ts) {
+    const chars = Math.min(baseMsg.length, Math.floor(ts/typeSpeed));
+    return baseMsg.slice(0, chars);
+  }
+
+  function draw(ts) {
+    if (start === null) start = ts;
+    const w = c.width, h = c.height;
+
+    ctx.clearRect(0,0,w,h);
+    ctx.fillStyle = "#0d0d0d";
+    ctx.fillRect(0,0,w,h);
+
+    ctx.font = "12px Roboto Mono, monospace";
+    ctx.fillStyle = "#628E12";
+    ctx.fillText("Normal(0,1)", pad, pad - 6);
+
+    const scanY = (ts/20) % h;
+    ctx.fillStyle = "rgba(255,255,255,0.02)";
+    ctx.fillRect(0, scanY, w, 2);
+
+    let t = (ts - start) % total;
+    let prog = Math.min(1, t / drawMs);
+    prog = 1 - Math.pow(1 - prog, 3);
+    const cut = Math.max(2, Math.floor(prog * X.length));
+
+    ctx.strokeStyle = "#223322";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(mapX(-4,w), mapY(0,h));
+    ctx.lineTo(mapX( 4,w), mapY(0,h));
+    ctx.stroke();
+
+    ctx.strokeStyle = "#7BAD0F";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    for (let i = 0; i < cut; i++) {
+      const px = mapX(X[i], w), py = mapY(Y[i], h);
+      if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+
+    if (cut < X.length) {
+      const px = mapX(X[cut-1], w), py = mapY(Y[cut-1], h);
+      ctx.fillStyle = "#9ED13A";
+      ctx.beginPath(); ctx.arc(px, py, 3, 0, Math.PI*2); ctx.fill();
+    }
+
+    const sepY = Math.round(h*0.55);
+    ctx.strokeStyle = "#223322";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(pad, sepY);
+    ctx.lineTo(w - pad, sepY);
+    ctx.stroke();
+
+    const msg = typedText(ts - start);
+    const blink = Math.floor(ts/500)%2 === 0 ? "_" : " ";
+    ctx.font = "14px Roboto Mono, monospace";
+    ctx.fillStyle = "#7BAD0F";
+    ctx.fillText(msg + " " + blink, pad, sepY + 20);
+
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  requestAnimationFrame(draw);
+});
+
+// ====== PANEL SLIDE PARA CARDS ======
+document.addEventListener("DOMContentLoaded", () => {
+  const panel = document.querySelector(".panel-slide");
+  if (!panel) return;
+
+  document.querySelectorAll(".card-modulo").forEach(card => {
+    card.addEventListener("mouseenter", () => {
+      panel.classList.add("activo");
+      panel.innerHTML = card.querySelector(".contenido").innerHTML;
+    });
+    card.addEventListener("mouseleave", () => {
+      panel.classList.remove("activo");
+    });
+  });
+});
+document.addEventListener("scroll", () => {
+  const titulo = document.querySelector(".presentacion h1");
+  if (!titulo) return;
+  const scrollTop = window.scrollY;
+  const docHeight = document.body.scrollHeight - window.innerHeight;
+  const scrollPercent = scrollTop / docHeight;
+  titulo.style.backgroundPosition = `${scrollPercent * 100}% 0%`;
+});
+</script>
 
 
 <link rel="stylesheet" href="assets/styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-sidebar floating fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Ejercicios de Estadística</span>
-    </a>
-  </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
-<span class="menu-text">Inicio</span></a>
-  </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-módulos" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Módulos</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-módulos">    
-        <li>
-    <a class="dropdown-item" href="./modules/01_fundamentos.html">
- <span class="dropdown-text">Fundamentos</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./modules/02_probabilidad.html">
- <span class="dropdown-text">Probabilidad</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./modules/03_muestreo.html">
- <span class="dropdown-text">Muestreo</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./modules/04_estimacion.html">
- <span class="dropdown-text">Estimación</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./modules/05_pruebas.html">
- <span class="dropdown-text">Pruebas de Hipótesis</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./modules/06_regresion.html">
- <span class="dropdown-text">Regresión/ANOVA</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./modules/07_spc.html">
- <span class="dropdown-text">CEP / SPC</span></a>
-  </li>  
-    </ul>
-  </li>
-</ul>
-          </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
-</div>
-      </div> <!-- /container-fluid -->
-    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Inicio</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Ejercicios de Estadística</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Inicio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Módulos</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modules/01_fundamentos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fundamentos</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modules/02_probabilidad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Probabilidad</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modules/03_muestreo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Muestreo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modules/04_estimacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Estimación</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modules/05_pruebas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pruebas de Hipótesis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modules/06_regresion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regresión/ANOVA</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modules/07_spc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CEP / SPC</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     
 <!-- main -->
@@ -153,7 +309,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Inicio</h1>
+<h1 class="title">Ejercicios de Estadistica</h1>
 </div>
 
 
@@ -171,26 +327,8 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="fondo-animado">
-<p><svg width="100%" height="100%" viewbox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid slice"> <path id="trayectoria" d="M 0 300 Q 250 100 500 300 T 1000 300" stroke="rgba(0,0,0,0.15)" stroke-width="2" fill="none"></path> <circle r="20" fill="#ABFF02" opacity="0.4" filter="url(#halo)"> <animate attributename="opacity" values="0.2;0.6;0.2" dur="2s" repeatcount="indefinite"></animate> <animatemotion dur="6s" repeatcount="indefinite"> <mpath href="#trayectoria"></mpath> </animatemotion> </circle> <rect x="-4" y="-1" width="5" height="2" rx="1" ry="1" fill="#111"> <animatemotion dur="6s" repeatcount="indefinite"> <mpath href="#trayectoria"></mpath> </animatemotion> </rect> <defs> <filter id="halo" x="-150%" y="-150%" width="400%" height="400%"> <fegaussianblur in="SourceGraphic" stddeviation="25"></fegaussianblur> </filter> </defs> </svg></p>
+<p><svg width="100%" height="100%" viewbox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid slice"> <path id="trayectoria" d="M 0 300 Q 250 100 500 300 T 1000 300" stroke="rgba(0,0,0,0.15)" stroke-width="2" fill="none"></path> <circle r="20" fill="#7BAD0F" opacity="0.6" filter="url(#halo)"> <animate attributename="opacity" values="0.2;0.6;0.2" dur="2s" repeatcount="indefinite"></animate> <animatemotion dur="6s" repeatcount="indefinite"> <mpath href="#trayectoria"></mpath> </animatemotion> </circle> <rect x="-4" y="-1" width="5" height="2" rx="1" ry="1" fill="#111"> <animatemotion dur="6s" repeatcount="indefinite"> <mpath href="#trayectoria"></mpath> </animatemotion> </rect> <defs> <filter id="halo" x="-150%" y="-150%" width="400%" height="400%"> <fegaussianblur in="SourceGraphic" stddeviation="25"></fegaussianblur> </filter> </defs> </svg></p>
 </div>
-<svg class="path-background" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 500 690" preserveaspectratio="none">
-<path d="M 0 0 
-           L 492 0 
-           C 497 0 500 2 500 7 
-           L 500 685 
-           C 499 688 496 690 493 690 
-           L 246 688 
-           L 0 689 
-           L 0 501.12 
-           A 17.23 17.23 0 0 1 6.11 487.95 
-           L 23.89 472.93 
-           A 17.23 17.23 0 0 0 30 459.77 
-           L 30 144.32 
-           A 17.23 17.23 0 0 0 23.89 131.15 
-           L 6.11 116.13 
-           A 17.23 17.23 0 0 1 0 102.97 
-           L 0 0 Z" fill="#000" stroke="#000" stroke-width="2"></path>
-</svg>
 <div class="layout-dos-columnas">
 <section id="estadística-aplicada" class="level1 columna-izquierda presentacion">
 <h1>Estadística Aplicada</h1>
@@ -221,6 +359,63 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
+</div>
+</div>
+<section id="contenido" class="level3 presentacion">
+<h3 class="anchored" data-anchor-id="contenido">CONTENIDO</h3>
+</section>
+<div class="custom-cards">
+<section id="fundamentos" class="level3 custom-card card-modulo">
+<h3 class="anchored" data-anchor-id="fundamentos">Fundamentos</h3>
+<p>Introducción a los conceptos básicos de estadística.<br>
+<a href="fundamentos.qmd">Ver módulo →</a></p>
+<section id="unidad-1" class="level4 contenido">
+<h4 class="anchored" data-anchor-id="unidad-1"><strong>Unidad 1</strong></h4>
+<ul>
+<li>Conceptos básicos<br>
+</li>
+<li>Variables y tipos<br>
+</li>
+<li>Escalas de medición<br>
+</li>
+</ul>
+</section>
+</section>
+<div class="custom-card card-modulo">
+<section id="probabilidad" class="level4">
+<h4 class="anchored" data-anchor-id="probabilidad"><strong>Probabilidad</strong></h4>
+<p>Análisis de sucesos aleatorios y distribuciones.<br>
+<a href="probabilidad.qmd">Ver módulo →</a></p>
+</section>
+<section id="unidad-2" class="level4 contenido">
+<h4 class="anchored" data-anchor-id="unidad-2"><strong>Unidad 2</strong></h4>
+<ul>
+<li>Sucesos aleatorios<br>
+</li>
+<li>Distribuciones<br>
+</li>
+<li>Esperanza matemática<br>
+</li>
+</ul>
+</section>
+</div>
+<div class="custom-card card-modulo">
+<section id="muestreo" class="level4">
+<h4 class="anchored" data-anchor-id="muestreo"><strong>Muestreo</strong></h4>
+<p>Técnicas y diseños para obtener muestras representativas.<br>
+<a href="muestreo.qmd">Ver módulo →</a></p>
+</section>
+<section id="unidad-3" class="level4 contenido">
+<h4 class="anchored" data-anchor-id="unidad-3"><strong>Unidad 3</strong></h4>
+<ul>
+<li>Tipos de muestreo<br>
+</li>
+<li>Tamaño de muestra<br>
+</li>
+<li>Errores de muestreo<br>
+</li>
+</ul>
+</section>
 </div>
 </div>
 
@@ -645,6 +840,19 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>© 2025 | Estadística práctica en R</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
 
 
 

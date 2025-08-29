@@ -3,20 +3,26 @@
    ================================ */
 body {
   background-color: #f5f7fa;
-  background-image: 
-    linear-gradient(rgba(0,0,0,0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,0,0,0.06) 1px, transparent 1px),
-    radial-gradient(circle, rgba(0,0,0,0.12) 1px, transparent 1px);
-  background-size: 200px 200px;
-  background-position: 0 0, 0 0, -1px -1px;
+  font-size: 20px;
 }
 
+#title-block-header {
+  display: none;
+}
 
 
 /* ================================
    2. Presentación (Hero con títulos)
    ================================ */
-.presentacion h1,
+.presentacion h1 {
+  background: linear-gradient(90deg, #7BAD0F, #9ED13A, #709E06);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMove 14s ease-in-out infinite alternate;
+  font-size: 6rem;
+}
+
 .presentacion h2,
 .presentacion h3 {
   background: linear-gradient(90deg, #7BAD0F, #9ED13A, #709E06);
@@ -50,6 +56,7 @@ body {
 .columna-izquierda {
   max-width: 500px;
   text-align: left;
+  margin-left: -30rem;
 }
 
 /* Columna derecha: terminal */
@@ -71,23 +78,29 @@ body {
    4. Estilo general del contenido
    ================================ */
 /* Solo H1 en verde degradado */
+/* estado base: sin animación */
 .contenido h1,
 .presentacion h1 {
-  background: linear-gradient(90deg, #7BAD0F, #9ED13A, #709E06);
+  background: linear-gradient(90deg, #fff, #000, #ABFF02);
   background-size: 300% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gradientMove 14s ease-in-out infinite alternate;
   font-weight: 700;
   margin-top: 2rem;
   margin-bottom: 1rem;
 }
 
-/* Animación del degradado */
+/* solo se anima si tiene la clase 'animado' */
+.contenido h1.animado,
+.presentacion h1.animado {
+  animation: gradientMove 5s ease-in-out infinite alternate;
+}
+
 @keyframes gradientMove {
-  0% { background-position: 0% center; }
+  0%   { background-position: 0% center; }
   100% { background-position: 200% center; }
 }
+
 
 /* H2 y H3 normales (gris oscuro) */
 .contenido h2,
@@ -358,12 +371,14 @@ body {
    11. Navbar flotante semicircular
    ================================ */
 .navbar {
-  background: rgba(80, 80, 80, 0.9);
+  position: sticky;
+  top: 0;  /* <- clave */
+  background: rgba(80, 80, 80, 0.6);
   backdrop-filter: blur(10px);
-  border-radius: 50px;
+  border-radius: 15px;
   padding: 0.6rem 2rem;
   margin: 1rem auto;
-  max-width: 90%;
+  max-width: 60%;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
   display: flex;
   align-items: center;
@@ -375,16 +390,17 @@ body {
 .navbar-brand {
   color: #fff !important;
   font-weight: 500;
+  font-size: 20px;
   text-decoration: none;
 }
 
 .navbar a:hover,
 .navbar .nav-link:hover {
-  color: #7BAD0F !important;
+  color: #ABFF02 !important;
 }
 
 .navbar .nav-link.active {
-  color: #7BAD0F !important;
+  color: #ABFF02 !important;
 }
 
 .navbar .bi,
@@ -393,4 +409,28 @@ body {
   stroke: none;
   width: 1.1rem;
   height: 1.1rem;
+}
+
+.navbar .dropdown-menu {
+  background: rgba(80, 80, 80, 0.9);  /* gris translúcido */
+  backdrop-filter: blur(10px);        /* mismo blur que el navbar */
+  border-radius: 12px;
+  border: none;
+}
+
+.navbar .dropdown-menu a {
+  color: #fff !important;
+}
+
+.navbar .dropdown-menu a:hover {
+  background: rgba(123, 173, 15, 0.2); /* verde translúcido al hover */
+  color: #7BAD0F !important;
+}
+
+.path-background {
+  position: absolute;
+  top: 0; left: 1120px;
+  width: 80%;
+  height: 110%;
+  z-index: -1000;  /* se queda detrás del contenido */
 }

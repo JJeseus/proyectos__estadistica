@@ -26,8 +26,7 @@ website:
             href: modules/06_regresion.qmd
           - text: CEP / SPC
             href: modules/07_spc.qmd
-  page-footer:
-    center: "© 2025 | Estadística práctica en R"
+
 
 format:
   html:
@@ -38,6 +37,7 @@ format:
     css: assets/styles.css
     include-in-header:
       text: |
+        <script src="assets/scripts.js"></script>
         <script src="https://webr.r-wasm.org/latest/webr.mjs" type="module"></script>
         <script type="module">
           import { WebR } from "https://webr.r-wasm.org/latest/webr.mjs";
