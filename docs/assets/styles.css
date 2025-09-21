@@ -1,436 +1,557 @@
 /* ================================
    1. Base Reset
    ================================ */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-  background-color: #f5f7fa;
-  font-size: 20px;
+    background-color: #f5f7fa;
+    font-size: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
 }
 
 #title-block-header {
-  display: none;
+    display: none;
 }
-
 
 /* ================================
    2. Presentación (Hero con títulos)
    ================================ */
+
+.titulo h1{
+  font-size: clamp(1rem, 8vw, 5rem);
+}   
+
 .presentacion h1 {
-  background: linear-gradient(90deg, #7BAD0F, #9ED13A, #709E06);
-  background-size: 300% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradientMove 14s ease-in-out infinite alternate;
-  font-size: 6rem;
+    background: linear-gradient(90deg, #7BAD0F, #9ED13A, #709E06);
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientMove 14s ease-in-out infinite alternate;
+    font-size: clamp(2.5rem, 8vw, 6rem);
+    margin-bottom: 1rem;
 }
 
 .presentacion h2,
 .presentacion h3 {
-  background: linear-gradient(90deg, #7BAD0F, #9ED13A, #709E06);
-  background-size: 300% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradientMove 14s ease-in-out infinite alternate;
+    background: linear-gradient(90deg, #7BAD0F, #9ED13A, #709E06);
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientMove 14s ease-in-out infinite alternate;
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
 }
 
 @keyframes gradientMove {
-  0% { background-position: 0% center; }
-  100% { background-position: 200% center; }
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
 }
-
 
 /* ================================
-   3. Layout dos columnas
+   3. Layout dos columnas - RESPONSIVE - CORREGIDO
    ================================ */
-/* Layout en dos columnas */
 .layout-dos-columnas {
-  display: grid;
-  grid-template-columns: 500px 1fr;  /* izquierda fija, derecha flexible */
-  gap: 6rem;                         /* espacio entre columnas */
-  align-items: left;
-  margin: 4rem auto;
-  max-width: 1400px;
-  padding: 0 2rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 5rem;
+    align-items: start;
+    margin: 4rem auto;
+    max-width: 2000px;
+    padding: 0 2rem;
 }
 
-/* Columna izquierda: texto */
+@media (min-width: 992px) {
+    .layout-dos-columnas {
+        grid-template-columns: minmax(350px, 450px) 1.5fr;
+        gap: 20rem; /* Separación amplia entre columnas */
+    }
+}
+
 .columna-izquierda {
-  max-width: 500px;
-  text-align: left;
-  margin-left: -30rem;
+    text-align: left;
+    width: 100%;
 }
 
-/* Columna derecha: terminal */
+/* ELIMINADO: margin-left negativo que causaba problemas */
 .columna-derecha {
-  display: flex;
-  justify-content: flex-start;  /* evita que se pegue */
+    display: flex;
+    justify-content: center;
 }
 
+@media (min-width: 992px) {
+    .columna-derecha {
+        justify-content: flex-start;
+        /* ELIMINADO: margin-left adicional */
+    }
+}
+
+/* Y la terminal puede ser más ancha */
 .ventana-terminal {
-  width: 100%;
-  max-width: 600px;             /* terminal más grande */
-  margin-left: auto;            /* empuja hacia la derecha */
+    max-width: 1000px; /* ↑ Aumentado de 850px */
 }
 
-
-
+@media (min-width: 768px) {
+    .ventana-terminal {
+        max-width: 2000px; /* ↑ Aumentado de 900px */
+    }
+}
 
 /* ================================
    4. Estilo general del contenido
    ================================ */
-/* Solo H1 en verde degradado */
-/* estado base: sin animación */
 .contenido h1,
 .presentacion h1 {
-  background: linear-gradient(90deg, #fff, #000, #ABFF02);
-  background-size: 300% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 700;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
+    background: linear-gradient(90deg, #fff, #000, #ABFF02);
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: clamp(2rem, 6vw, 3.5rem);
 }
 
-/* solo se anima si tiene la clase 'animado' */
 .contenido h1.animado,
 .presentacion h1.animado {
-  animation: gradientMove 5s ease-in-out infinite alternate;
+    animation: gradientMove 5s ease-in-out infinite alternate;
 }
 
-@keyframes gradientMove {
-  0%   { background-position: 0% center; }
-  100% { background-position: 200% center; }
-}
-
-
-/* H2 y H3 normales (gris oscuro) */
 .contenido h2,
 .contenido h3,
 .presentacion h2,
 .presentacion h3 {
-  font-weight: 700;
-  color: #333;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
+    font-weight: 700;
+    color: #333;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
 }
-
-
 
 /* ================================
    5. Hero estilo Terminal
    ================================ */
 .hero-terminal {
-  background: #0d0d0d;
-  color: #7BAD0F;
-  padding: 6rem 2rem;
-  text-align: center;
-  border-radius: 15px;
-  margin-bottom: 3rem;
-  font-family: "Fira Code", "Courier New", monospace;
-  position: relative;
-  overflow: hidden;
+    background: #0d0d0d;
+    color: #7BAD0F;
+    padding: 4rem 1.5rem;
+    text-align: center;
+    border-radius: 15px;
+    margin-bottom: 3rem;
+    font-family: "Fira Code", "Courier New", monospace;
+    position: relative;
+    overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    .hero-terminal {
+        padding: 6rem 2rem;
+    }
 }
 
 .hero-terminal h2 {
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    font-weight: bold;
+    margin-bottom: 1rem;
 }
 
 .hero-terminal .typewriter {
-  display: inline-block;
-  font-size: 1.2rem;
-  border-right: 2px solid #7BAD0F;
-  white-space: nowrap;
-  overflow: hidden;
-  animation: typing 3s steps(40, end), blink 0.75s step-end infinite;
+    display: inline-block;
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    border-right: 2px solid #7BAD0F;
+    white-space: nowrap;
+    overflow: hidden;
+    animation: typing 3s steps(40, end), blink 0.75s step-end infinite;
 }
 
 @keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
+    from { width: 0 }
+    to { width: 100% }
 }
 @keyframes blink {
-  from, to { border-color: transparent }
-  50% { border-color: #7BAD0F }
+    from, to { border-color: transparent }
+    50% { border-color: #7BAD0F }
 }
-
 
 /* ================================
    6. Buttons
    ================================ */
 .btn {
-  display: inline-block;
-  margin: 0.5rem;
-  padding: 0.9rem 1.7rem;
-  font-size: 1rem;
-  border-radius: 10px;
-  font-weight: bold;
-  text-decoration: none;
-  transition: all 0.3s ease;
+    display: inline-block;
+    margin: 0.5rem;
+    padding: 0.9rem 1.7rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
 }
 
 .btn-primary {
-  background: white;
-  color: #2575fc;
+    background: white;
+    color: #2575fc;
 }
 
 .btn-primary:hover {
-  background: #2575fc;
-  color: white;
+    background: #2575fc;
+    color: white;
 }
 
 .btn-secondary {
-  background: #ff6a00;
-  color: white;
+    background: #ff6a00;
+    color: white;
 }
 
 .btn-secondary:hover {
-  background: #e65c00;
+    background: #e65c00;
 }
-
 
 /* ================================
    7. Cards (módulos de contenido)
    ================================ */
-/* Contenedor de tarjetas */
 .custom-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 2rem;
-  padding: 3rem 1rem;
-  max-width: 1000px;
-  margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+    padding: 3rem 1rem;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
-/* Cada tarjeta */
 .custom-card {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(6px);
-  border-radius: 18px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-  transition: all 0.3s ease;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(6px);
+    border-radius: 18px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
 
 .custom-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+    transform: translateY(-8px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.12);
 }
 
-/* Título del módulo */
 .custom-card h3 {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #628E12;
-  margin-bottom: 0.6rem;
-  position: relative;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #628E12;
+    margin-bottom: 0.6rem;
+    position: relative;
 }
 
-/* Texto y descripción */
 .custom-card p {
-  color: #333;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  margin-bottom: 1rem;
+    color: #333;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
 }
 
-/* Links */
 .custom-card a {
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: #7BAD0F;
-  text-decoration: none;
-  transition: color 0.2s ease;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #7BAD0F;
+    text-decoration: none;
+    transition: color 0.2s ease;
 }
 
 .custom-card a:hover {
-  color: #9ED13A;
+    color: #9ED13A;
 }
 
-/* Bloque de contenido interno (ya no como card) */
 .custom-card .contenido {
-  margin-top: 1rem;
-  padding-left: 1rem;
-  border-left: 3px solid #7BAD0F; /* línea lateral sutil */
-  font-size: 0.9rem;
-  line-height: 1.5;
-  color: #444;
-  background: none;       /* quitar fondo */
-  border-radius: 0;       /* quitar bordes */
-  box-shadow: none;       /* quitar sombras */
+    margin-top: 1rem;
+    padding-left: 1rem;
+    border-left: 3px solid #7BAD0F;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #444;
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
 }
 
-/* Ítems de la lista */
 .custom-card .contenido li {
-  list-style: none;
-  margin-bottom: 0.4rem;
-  position: relative;
+    list-style: none;
+    margin-bottom: 0.4rem;
+    position: relative;
 }
 
 .custom-card .contenido li::before {
-  content: "▹";
-  color: #7BAD0F;
-  position: absolute;
-  left: -1.2rem;
+    content: "▹";
+    color: #7BAD0F;
+    position: absolute;
+    left: -1.2rem;
 }
 
 /* ================================
-   8. Ventana estilo terminal
+   8. Ventana estilo terminal - MEJORADO
+   ================================ */
+/* ================================
+   8. Ventana estilo terminal - TAMAÑO MEJORADO
    ================================ */
 .ventana-terminal {
-  background: #0d0d0d;
-  color: #7BAD0F;
-  font-family: "Roboto Mono", monospace;
-  border-radius: 12px;
-  padding: 2rem;
-  width: 100%;
-  max-width: 700px;
-  min-height: 250px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-  font-size: 0.95rem;
-  line-height: 1.5rem;
-  position: relative;
+    background: #0d0d0d;
+    color: #7BAD0F;
+    font-family: "Roboto Mono", monospace;
+    border-radius: 12px;
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 850px; /* Más ancho */
+    min-height: 380px; /* Más alto */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    font-size: 1.05rem; /* Fuente más grande */
+    line-height: 1.7rem; /* Mejor espaciado */
+    position: relative;
+    /* ELIMINAR: overflow y max-height que causan problemas */
+}
+
+@media (min-width: 768px) {
+    .ventana-terminal {
+        padding: 3rem;
+        min-height: 420px; /* Aún más alto en desktop */
+        max-width: 2000px; /* Más ancho en desktop */
+    }
 }
 
 .ventana-terminal::after {
-  content: "_";
-  animation: blink 1s infinite;
-  margin-left: 3px;
+    content: "_";
+    animation: blink 1s infinite;
+    margin-left: 3px;
+    font-size: 1.1rem;
 }
 
 .cursor {
-  display: inline-block;
-  width: 8px;
-  background: #7BAD0F;
-  margin-left: 3px;
-  animation: blink 1s infinite;
+    display: inline-block;
+    width: 10px;
+    background: #7BAD0F;
+    margin-left: 4px;
+    animation: blink 1s infinite;
+    height: 1.2rem;
 }
 
 .ventana-terminal pre,
 .ventana-terminal code {
-  background: transparent !important;
-  color: #7BAD0F !important;
-  font-family: "Roboto Mono", monospace;
-  font-size: 0.95rem;
-  border: none;
-  padding: 0;
-  box-shadow: none;
+    background: transparent !important;
+    color: #7BAD0F !important;
+    font-family: "Roboto Mono", monospace;
+    font-size: 1.05rem; /* Fuente más grande */
+    border: none;
+    padding: 0;
+    box-shadow: none;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin: 0;
+    line-height: 1.7; /* Mejor espaciado */
 }
 
 .ventana-terminal::before {
-  content: "● ● ●";
-  color: #555;
-  position: absolute;
-  top: 8px;
-  left: 12px;
-  font-size: 0.8rem;
-  letter-spacing: 4px;
+    content: "● ● ●";
+    color: #555;
+    position: absolute;
+    top: 15px;
+    left: 18px;
+    font-size: 1rem;
+    letter-spacing: 4px;
 }
 
+/* Contenedor de la gráfica - tamaño aumentado */
+#grafica-normal {
+    width: 100%;
+    height: 350px; /* Más alto */
+    margin-bottom: 1rem;
+    position: relative;
+}
 
+/* Mejorar visualización del output de R */
+.ventana-terminal pre code {
+    display: block;
+    padding: 0.5rem 0;
+}
+
+.ventana-terminal .language-r {
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
 /* ================================
    9. Fondo animado
    ================================ */
 .fondo-animado {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
 }
 
 .fondo-animado svg {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
-
 
 /* ================================
    10. Animations generales
    ================================ */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .fade-in {
-  opacity: 0;
-  animation: fadeIn 1s forwards;
+    opacity: 0;
+    animation: fadeIn 1s forwards;
 }
 
 .fade-in.delay-1 { animation-delay: 0.3s; }
 .fade-in.delay-2 { animation-delay: 0.6s; }
 
-
 /* ================================
    11. Navbar flotante semicircular
    ================================ */
 .navbar {
-  position: sticky;
-  top: 0;  /* <- clave */
-  background: rgba(80, 80, 80, 0.6);
-  backdrop-filter: blur(10px);
-  border-radius: 15px;
-  padding: 0.6rem 2rem;
-  margin: 1rem auto;
-  max-width: 60%;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+    position: sticky;
+    top: 0;
+    background: rgba(80, 80, 80, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 0.6rem 1.5rem;
+    margin: 1rem auto;
+    max-width: 90%;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+}
+
+@media (min-width: 768px) {
+    .navbar {
+        max-width: 80%;
+        padding: 0.6rem 2rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .navbar {
+        max-width: 60%;
+    }
 }
 
 .navbar a,
 .navbar .nav-link,
 .navbar-brand {
-  color: #fff !important;
-  font-weight: 500;
-  font-size: 20px;
-  text-decoration: none;
+    color: #fff !important;
+    font-weight: 500;
+    font-size: clamp(16px, 3vw, 20px);
+    text-decoration: none;
 }
 
 .navbar a:hover,
 .navbar .nav-link:hover {
-  color: #ABFF02 !important;
+    color: #ABFF02 !important;
 }
 
 .navbar .nav-link.active {
-  color: #ABFF02 !important;
+    color: #ABFF02 !important;
 }
 
 .navbar .bi,
 .navbar svg {
-  fill: #fff !important;
-  stroke: none;
-  width: 1.1rem;
-  height: 1.1rem;
+    fill: #fff !important;
+    stroke: none;
+    width: 1.1rem;
+    height: 1.1rem;
 }
 
 .navbar .dropdown-menu {
-  background: rgba(80, 80, 80, 0.9);  /* gris translúcido */
-  backdrop-filter: blur(10px);        /* mismo blur que el navbar */
-  border-radius: 12px;
-  border: none;
+    background: rgba(80, 80, 80, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    border: none;
 }
 
 .navbar .dropdown-menu a {
-  color: #fff !important;
+    color: #fff !important;
 }
 
 .navbar .dropdown-menu a:hover {
-  background: rgba(123, 173, 15, 0.2); /* verde translúcido al hover */
-  color: #7BAD0F !important;
+    background: rgba(123, 173, 15, 0.2);
+    color: #7BAD0F !important;
 }
 
+/* ================================
+   12. Path background - CORREGIDO
+   ================================ */
 .path-background {
-  position: absolute;
-  top: 0; left: 1120px;
-  width: 80%;
-  height: 110%;
-  z-index: -1000;  /* se queda detrás del contenido */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1000;
+    opacity: 1;
+    pointer-events: none;
+}
+
+@media (min-width: 992px) {
+    .path-background {
+        left: 50%;
+        width: 60%;
+    }
+}
+
+@media (min-width: 1400px) {
+    .path-background {
+        left: 55%;
+        width: 50%;
+        height: 110%;
+    }
+}
+
+/* ================================
+   13. Secciones para animación de scroll
+   ================================ */
+.seccion {
+    min-height: 100vh;
+    padding: 4rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.seccion.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ================================
+   14. Utilidades responsive
+   ================================ */
+.contenedor {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .contenedor {
+        padding: 0 2rem;
+    }
+}
+
+.texto-responsive {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    line-height: 1.6;
 }

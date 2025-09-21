@@ -33,9 +33,9 @@ format:
   </svg>
 </div>
 
-
+<!-- Path background optimizado para responsive -->
 <svg class="path-background" xmlns="http://www.w3.org/2000/svg"
-     viewBox="0 0 500 690" preserveAspectRatio="none">
+     viewBox="0 0 500 690" preserveAspectRatio="xMinYMin meet">
   <path d="M 0 0 
            L 492 0 
            C 497 0 500 2 500 7 
@@ -56,10 +56,8 @@ format:
         stroke="#000" stroke-width="2"/>
 </svg>
 
-
-
 ::: {.layout-dos-columnas}
-::: {.columna-izquierda .presentacion}
+::: {.columna-izquierda .titulo}
 # Estadística Aplicada
 ## Datos, Modelos y Procesos
 
@@ -67,34 +65,11 @@ Métodos **prácticos** para transformar datos en decisiones, integrando
 <span class="resaltado">análisis predictivo</span>, simulaciones y visualización interactiva.
 :::
 
-
-::: {.columna-derecha}
-::: {.ventana-terminal .fade-in}
-
-<div id="grafica-normal" style="width:100%;height:280px;margin-bottom:.5rem;"></div>
-
-```{r, echo=FALSE}
-set.seed(123)
-datos <- rnorm(7, mean = 0, sd = 1)
-
-datos
-
-# Calcular estadísticas
-media   <- round(mean(datos),3)
-mediana <- median(datos)
-sd      <- round(sd(datos),3)
-minimo  <- min(datos)
-maximo  <- max(datos)
-
-cat("\n------stats------\n")
-cat("µ:",media,"\n")
-cat("σ:",sd,"\n")
-
-
-
-```
-:::
-:::
+::: {.columna-derecha .presentacion}
+# Comenzar
 :::
 
+<section id="seccion-estadistica" class="seccion"> <div class="contenedor"> <h2>Estadística Aplicada</h2> <p>Contenido sobre métodos estadísticos...</p> </div> </section><section id="seccion-modelos" class="seccion"> <div class="contenedor"> <h2>Modelos Predictivos</h2> <p>Contenido sobre modelos...</p> </div> </section>
+
+# Hola mundo
 
